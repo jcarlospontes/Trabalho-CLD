@@ -48,6 +48,7 @@ gates = []
 tabela = []
 binarios = []
 
+
 #Função que lê os nomes de entrada das portas lógicas do arquivo de descrição.
 def ler_entrada():
 	f = open("entrada.txt", "r")
@@ -106,6 +107,7 @@ def tabela_constructor():
 		lim += 1
 		cont = 0
 
+
 def print_tabela():
 	lim = 0
 	print(entradas_e_saidas)
@@ -113,7 +115,7 @@ def print_tabela():
 		print(tabela[lim])
 		lim +=1
 
-print_tabela()
+tabela_constructor()
 
 def converte_binario():
 	i = 0
@@ -138,7 +140,7 @@ def converte_binario():
 		j += 1
 
 
-tabela_constructor()
+
 
 #def operar_porta(x,y):
 
