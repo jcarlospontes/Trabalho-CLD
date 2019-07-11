@@ -140,10 +140,48 @@ def converte_binario():
 		j += 1
 
 
-
+#def operar_porta(x):
+	
 
 #def operar_porta(x,y):
 
-
 converte_binario()
 print_tabela()
+
+
+print(gates)
+
+"""gates_resultados = []
+
+def operar_gate(linha):
+	prov = []
+	lim = 0
+	while lim < len(gates)
+		gates_resultados.append("null")
+		lim +=1
+	lim = 0
+	while lim < len(gates)
+		prov.append(x[lim])
+		prov[]
+		
+	oper = []
+	oper.append(x[num])
+	if oper[1] ==
+"""
+
+def comportamento_porta(x):
+	f = open("entrada.txt","r")
+	lines = f.readlines()
+	lim = 3
+	while lim <= len(gates)+2:
+		x.append(lines[lim].rstrip('\n'))
+		lim +=1
+	f.close()
+
+x = []
+
+comportamento_porta(x)
+
+print(x)
+
+
