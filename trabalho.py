@@ -1,45 +1,57 @@
-#Função que lê uma lista "xor" e retorna 1 ou 0.
-def xor_function(x):
-	if x[0] == x[1]:
+#Função que lê uma lista "xor" e retorna um valor.
+def xor_function(lista, *args):
+	zero = False
+	for x in lista:
+		if x == 0:
+			zero = True
+	if zero == True and sum(lista) > 0:
+		return 1
+	else:
+		return 0
+
+#Função que lê uma lista "nor" e retorna um valor.
+def nor_function(lista, *args):
+	if sum(lista) == 0:
+		return 1
+	else:
+		return 0
+
+#Função que lê uma lista "or" e retorna um valor.
+def or_function(lista, *args):
+	if sum(lista) == 0:
 		return 0
 	else:
 		return 1
-#Função que lê uma lista "or" e retorna 1 ou 0.
-def or_function(x):
-	if sum(x) == 0:
-		return 0
-	else:
-		return 1
-#Função que lê uma lista "nand" e retorna 1 ou 0.
-def nand_function(x):
+
+#Função que lê uma lista "nand" e retorna um valor.
+def nand_function(lista, *args):
 	alerta = False
-	lim = 0
-	while lim < len(x)-1:
-		if x[lim] == 0:
+	for x in lista:
+		if x == 0:
 			alerta = True
-		lim +=1
 	if alerta == True:
 		return 1
 	else:
 		return 0
-#Função que lê uma lista "and" e retorna 1 ou 0.
-def and_function(x):
-	alerta = False
-	lim = 0
-	while lim < len(x)-1:
-		if x[lim] == 0:
-			alerta = True
-		lim +=1
-	if alerta == True:
+
+#Função que lê uma lista "and" e retorna um valor.
+def and_function(lista, *args):
+	zero = False
+	for x in lista:
+		if x == 0:
+			zero = True
+	if zero == True:
 		return 0
 	else:
 		return 1
+
 #Fução que transforma 0 em 1 e 1 em 0.
-def not_function(x):
-	if (x == 0):
+def not_function(valor):
+	if (valor == 0):
 		return 1
 	else:
 		return 0
+
 
 entradas = []
 saidas = []
@@ -152,7 +164,6 @@ print_tabela()
 print(gates)
 
 """gates_resultados = []
-
 def operar_gate(linha):
 	prov = []
 	lim = 0
@@ -183,5 +194,3 @@ x = []
 comportamento_porta(x)
 
 print(x)
-
-
