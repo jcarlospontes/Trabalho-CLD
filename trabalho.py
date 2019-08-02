@@ -56,10 +56,12 @@ def not_function(valor):
 entradas = []
 saidas = []
 entradas_e_saidas = []
+lista_copia = []
 gates = []
 tabela = []
 binarios = []
-
+comportamento = []
+linha = []
 
 #Função que lê os nomes de entrada das portas lógicas do arquivo de descrição.
 def ler_entrada():
@@ -99,13 +101,23 @@ def ler_gates():
 		gates.append(x[lim].rstrip('\n'))
 		lim += 1
 	f.close()
-	
+
+def ler_gates_comportamento():
+	f = open("entrada.txt","r")
+	lines = f.readlines()
+	lim = 3
+	while lim <= len(gates)+2:
+		comportamento.append(lines[lim].rstrip('\n').split(','))
+		lim +=1
+	f.close()
+
 ler_entrada()
 ler_saida()
 ler_gates()
-entradas_e_saidas = entradas + saidas
+ler_gates_comportamento()
+entradas_e_saidas = entradas + gates + saidas
 numero_linhas = 2**len(entradas)
-numero_colunas = len(entradas + saidas)
+numero_colunas = len(entradas + saidas + gates)
 
 #Função que constroi o "corpo" da matriz onde será alocada a tabela verdade.
 def tabela_constructor():
@@ -151,46 +163,22 @@ def converte_binario():
 		i = 0
 		j += 1
 
-
-#def operar_porta(x):
-	
-
-#def operar_porta(x,y):
-
 converte_binario()
 print_tabela()
 
+print(comportamento[0].index("A"))
 
-print(gates)
+def copia_lista():
+	i = len(entradas)
+	j = 0
+	lista_copia.extend(entradas_e_saidas)
+	while i < len(lista_copia) - 2:
+		if comportamento[j][2] in lista_copia:
+			i +=1
+			j += 1
+			continue
+		lista_copia[i] = comportamento[j][2]
+		i +=1
+		j += 1
 
-"""gates_resultados = []
-def operar_gate(linha):
-	prov = []
-	lim = 0
-	while lim < len(gates)
-		gates_resultados.append("null")
-		lim +=1
-	lim = 0
-	while lim < len(gates)
-		prov.append(x[lim])
-		prov[]
-		
-	oper = []
-	oper.append(x[num])
-	if oper[1] ==
-"""
-
-def comportamento_porta(x):
-	f = open("entrada.txt","r")
-	lines = f.readlines()
-	lim = 3
-	while lim <= len(gates)+2:
-		x.append(lines[lim].rstrip('\n'))
-		lim +=1
-	f.close()
-
-x = []
-
-comportamento_porta(x)
-
-print(x)
+copia_lista()
