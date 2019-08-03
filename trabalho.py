@@ -1,10 +1,7 @@
 #Função que lê uma lista "xor" e retorna um valor.
 def xor_function(lista, *args):
 	zero = False
-	for x in lista:
-		if x == 0:
-			zero = True
-	if zero == True and sum(lista) > 0:
+	if sum(lista)%2 != 0:
 		return 1
 	else:
 		return 0
@@ -46,17 +43,18 @@ def and_function(lista, *args):
 		return 1
 
 #Fução que transforma 0 em 1 e 1 em 0.
-def not_function(valor):
-	if (valor == 0):
-		return 1
-	else:
+def not_function(lista, *args):
+	if sum(lista) > 0:
 		return 0
+	else:
+		return 1
 
 
 entradas = []
 saidas = []
 entradas_e_saidas = []
 lista_copia = []
+comportamento_copia = []
 gates = []
 tabela = []
 binarios = []
@@ -164,16 +162,13 @@ def converte_binario():
 		j += 1
 
 converte_binario()
-print_tabela()
 
-print(comportamento[0].index("A"))
-
-def copia_lista():
+def duplica_lista():
 	i = len(entradas)
 	j = 0
 	lista_copia.extend(entradas_e_saidas)
 	while i < len(lista_copia) - 2:
-		if comportamento[j][2] in lista_copia:
+		if comportamento[j][2] in entradas_e_saidas:
 			i +=1
 			j += 1
 			continue
@@ -181,4 +176,136 @@ def copia_lista():
 		i +=1
 		j += 1
 
-copia_lista()
+duplica_lista()
+def opera_tabela():
+	comportamento_copia.extend(comportamento)
+	i = 0
+	tipo = 0
+	saida = 0
+	x = 0
+	numcomport = 0
+	while i < numero_linhas:
+		numcomport = 0
+		while "null" in tabela[i]:
+			listinha = []
+			listinha.extend(comportamento[numcomport])
+			gate = listinha[0]
+			tipo = listinha[1]
+			saida = listinha[2]
+			listinha.pop(0)
+			listinha.pop(0)
+			listinha.pop(0)
+			while x < len(listinha):
+				if listinha[x] in lista_copia:
+					listinha[x] = tabela[i][lista_copia.index(listinha[x])]
+				else:
+					listinha[x] = tabela[i][entradas_e_saidas.index(listinha[x])]
+				x +=1
+			x = 0
+			if "null" in listinha:
+				numcomport += 1
+				if numcomport == len(comportamento):
+					numcomport = 0
+					continue
+				continue
+			if saida in lista_copia:
+				if tipo == "xor":
+					tabela[i][lista_copia.index(saida)] = xor_function(listinha)
+				if tipo == "or":
+					tabela[i][lista_copia.index(saida)] = or_function(listinha)
+				if tipo == "and":
+					tabela[i][lista_copia.index(saida)] = and_function(listinha)
+				if tipo == "nor":
+					tabela[i][lista_copia.index(saida)] = nor_function(listinha)
+				if tipo == "nand":
+					tabela[i][lista_copia.index(saida)] = nand_function(listinha)
+				if tipo == "not":
+					tabela[i][lista_copia.index(saida)] = not_function(listinha)
+			if saida in entradas_e_saidas:
+				if tipo == "xor":
+					tabela[i][entradas_e_saidas.index(saida)] = xor_function(listinha)
+				if tipo == "or":
+					tabela[i][entradas_e_saidas.index(saida)] = or_function(listinha)
+				if tipo == "and":
+					tabela[i][entradas_e_saidas.index(saida)] = and_function(listinha)
+				if tipo == "nor":
+					tabela[i][entradas_e_saidas.index(saida)] = nor_function(listinha)
+				if tipo == "nand":
+					tabela[i][entradas_e_saidas.index(saida)] = nand_function(listinha)
+				if tipo == "not":
+					tabela[i][entradas_e_saidas.index(saida)] = not_function(listinha)
+			if gate in entradas_e_saidas:
+				if tipo == "xor":
+					tabela[i][entradas_e_saidas.index(gate)] = xor_function(listinha)
+				if tipo == "or":
+					tabela[i][entradas_e_saidas.index(gate)] = or_function(listinha)
+				if tipo == "and":
+					tabela[i][entradas_e_saidas.index(gate)] = and_function(listinha)
+				if tipo == "nor":
+					tabela[i][entradas_e_saidas.index(gate)] = nor_function(listinha)
+				if tipo == "nand":
+					tabela[i][entradas_e_saidas.index(gate)] = nand_function(listinha)
+				if tipo == "not":
+					tabela[i][entradas_e_saidas.index(gate)] = not_function(listinha)
+			numcomport += 1
+			if numcomport == len(comportamento):
+				numcomport = 0
+		i+=1
+
+opera_tabela()
+
+def criar_tabela():
+	x = 0
+	j = 0
+	lim = len(entradas)
+	f = open("tabelaverdade.txt", "w+")
+	while x < len(entradas):
+		if x == len(entradas)-1:
+			f.write(" {} |".format(entradas[x]))
+		elif x == 0:
+			f.write("| {} ".format(entradas[x]))
+		else:
+			f.write("| {} |".format(entradas[x]))
+		x+=1
+	x = 0
+	f.write(" - ")
+	while x < len(saidas):
+		if len(saidas) == 1:
+			f.write("| {} |\n".format(saidas[x]))
+			x +=1
+		if len(saidas) == 2:
+			if x == 0:
+				f.write("| {}".format(saidas[x]))
+			else:
+				f.write("|{} |\n".format(saidas[x]))
+			x +=1
+		if len(saidas) > 2:
+			if x == len(saidas)-1:
+				f.write("{} |\n".format(saidas[x]))
+			else:
+				f.write("|{} |".format(saidas[x]))
+			x+=1
+	x = 0
+	while j < numero_linhas:
+		while x < len(entradas):
+			if x == len(entradas)-1:
+				f.write(" {} |".format(tabela[j][x]))
+			elif x == 0:
+				f.write("| {} ".format(tabela[j][x]))
+			else:
+				f.write("| {} |".format(tabela[j][x]))
+			x+=1
+		x = 0
+		f.write(" - ")
+		lim = len(entradas_e_saidas) - len(saidas)
+		while lim < len(entradas_e_saidas):
+			if lim == len(entradas_e_saidas)-1:
+				f.write(" {} |\n".format(tabela[j][lim]))
+				lim += 1
+			else:
+				f.write("| {} |".format(tabela[j][lim]))
+				lim += 1
+		j += 1
+	f.close()
+
+criar_tabela()
