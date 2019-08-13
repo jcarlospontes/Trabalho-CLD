@@ -1,8 +1,9 @@
-entrada,3,A,B,C
+entrada,5,A,B,C,D,E
 saida,2,S1,S2
-gate,5,g1,g2,g3,g4,g5
-g1,xor,y1,A,B
-g2,xor,S1,y1,C
-g3,and,y3,y1,C
-g4,and,y4,B,A
-g5,or,S2,y3,y4
+gate,6,g1,g2,g3,g4,g5,g6
+g1,nand,y1,A,C
+g2,nand,y2,C,D
+g3,nand,y3,B,y2
+g4,nand,y4,y2,E
+g5,nand,S1,y1,y3
+g6,nand,S2,y3,y4
